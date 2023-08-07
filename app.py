@@ -1,4 +1,5 @@
-from flask import Flask,request,render_template
+from flask import Flask,request,render_template,jsonify
+import json
 
 # Creating a object for flask to store the module which __main__ which will store inside the __name__,
 # so if we are running it in standalone mode then we need to store this special varaible into the object
@@ -17,13 +18,15 @@ def math_operator():
     number1=request.json['number1']
     number2=request.json['number2']
     if operation=='add':
-        result=number1+number2
+        result=int(number1)+int(number2)
     elif operation=='multiply':
-        result=number1*number2
+        result=int(number1)*int(number2)
     elif operation=='division':
-        result=number1/number2
+        result=int(number1)/int(number2)
     else:
-        result=number1-number2
+        result=int(number1)-int(number2)
+    return jsonify(result)
+    
 
 
 
@@ -31,6 +34,6 @@ def math_operator():
 if __name__=='__main__':
     # by default flask will take the 5000 port but if we want to mention a particulat port we can mention in below 
     # Ex: obj.run(port=8000)
-    obj.run()
+    obj.run(debug=True)
 
 
